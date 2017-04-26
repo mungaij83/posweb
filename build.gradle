@@ -1,0 +1,49 @@
+apply plugin:'java'
+apply plugin:'eclipse'
+apply plugin:'org.springframework.boot'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+    }
+}
+
+jar {
+    baseName = 'SpringApp'
+    version =  '0.0.1-SNAPSHOT'
+}
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { 
+	url "https://repository.jboss.org/nexus/content/repositories/releases" 
+    }
+}
+sourceCompatibility=1.8
+targetCompatibility=1.8
+
+dependencies {
+	compile fileTree(dir: "libs", include: "*.jar")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile('javax.servlet:jstl')
+    compile('org.springframework.security:spring-security-taglibs')
+}
+
+springBoot{
+	mainClass="main.java.POSServer"
+}
